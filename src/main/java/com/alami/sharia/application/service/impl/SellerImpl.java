@@ -4,6 +4,7 @@ import com.alami.sharia.application.handler.exception.NotFoundException;
 import com.alami.sharia.application.service.interfaces.SellerService;
 import com.alami.sharia.application.service.model.Seller;
 import com.alami.sharia.application.service.repository.SellerRepository;
+import com.alami.sharia.application.util.GetterSetterUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +40,9 @@ public class SellerImpl implements SellerService {
 
     @Override
     public Object Put(String id, Object object) throws NotFoundException {
-        return null;
+        Seller newSeller = (Seller) object;
+        seller = (Seller) GetterSetterUtil.invoke(this.Get(id), newSeller, Seller.class);
+        return sellerRepository.save(seller);
     }
 
     @Override

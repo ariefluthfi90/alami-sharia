@@ -4,6 +4,7 @@ import com.alami.sharia.application.handler.exception.NotFoundException;
 import com.alami.sharia.application.service.interfaces.ProductService;
 import com.alami.sharia.application.service.model.Product;
 import com.alami.sharia.application.service.repository.ProductRepository;
+import com.alami.sharia.application.util.GetterSetterUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,7 +50,9 @@ public class ProductImpl implements ProductService {
 
     @Override
     public Object Put(String id, Object object) throws NotFoundException {
-        return null;
+        Product newProduct = (Product) object;
+        product = (Product) GetterSetterUtil.invoke(this.Get(id), newProduct, Product.class);
+        return productRepository.save(product);
     }
 
     @Override
